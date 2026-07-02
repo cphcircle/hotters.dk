@@ -88,7 +88,47 @@
     /* crew stays 2 columns, borders clean */
     .crew-card:nth-last-child(-n+2) { border-bottom: none; }
   }
+
+  /* --- Byg din egen hotter --- */
+  .builder { background: var(--off-white); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .builder .intro { text-align: center; margin-bottom: 2.5rem; }
+  .builder .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 820px; margin: 0 auto 1.5rem; }
+  .builder .step { background: var(--white); border: 2px solid var(--ink); padding: 1rem 1.1rem 1.2rem; }
+  .builder .step h3 { font-size: 1.4rem; color: var(--red); margin-bottom: 0.1rem; }
+  .builder .hint { font-size: 0.65rem; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .builder .opts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .builder .opt { cursor: pointer; user-select: none; border: 2px solid var(--ink); background: var(--off-white); padding: 0.4rem 0.75rem; font-weight: 600; font-size: 0.8rem; transition: all 0.12s; font-family: 'Inter', sans-serif; }
+  .builder .opt:hover { background: #f0ebe3; }
+  .builder .opt input { display: none; }
+  .builder .opt.on { background: var(--red); color: var(--white); border-color: var(--red); }
+  .builder .buildbtn { display: block; width: 100%; max-width: 820px; margin: 0 auto; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ink); color: var(--white); border: none; padding: 1rem; cursor: pointer; transition: background 0.15s; }
+  .builder .buildbtn:hover { background: var(--red); }
+  .builder .result { max-width: 820px; margin: 1.5rem auto 0; border: 2px solid var(--ink); position: relative; overflow: hidden; display: none; }
+  .builder .result.show { display: block; }
+  .builder .result .stripes { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, var(--red) 0, var(--red) 12px, var(--white) 12px, var(--white) 24px); }
+  .builder .result .inner { position: relative; background: var(--white); margin: 14px; padding: 2rem 1.5rem; text-align: center; }
+  .builder .result .r-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--smoke); }
+  .builder .result .r-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 7vw, 3.6rem); color: var(--red); margin: 0.3rem 0 0.6rem; line-height: 0.95; text-transform: uppercase; }
+  .builder .result .r-verdict { font-size: 1.05rem; max-width: 46ch; margin: 0 auto 1rem; }
+  .builder .result .r-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; }
+  .builder .result .r-recipe { font-size: 0.8rem; color: var(--smoke); margin-top: 1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  @media (max-width: 560px) { .builder .steps-grid { grid-template-columns: 1fr; } }
+  .builder .sharebtn { display: block; margin: 1.25rem auto 0; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; background: var(--white); color: var(--ink); border: 2px solid var(--ink); padding: 0.7rem 1.4rem; cursor: pointer; transition: all 0.15s; }
+  .builder .sharebtn:hover { background: var(--ink); color: var(--white); }
+
+  /* off-screen 1080x1080 export card for Instagram */
+  .share-wrap { position: absolute; left: -99999px; top: 0; }
+  .share-card { width: 1080px; height: 1080px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 80px; font-family: 'Inter', sans-serif; }
+  .share-card .s-stripes { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .share-panel { position: relative; z-index: 1; background: var(--white); padding: 80px 70px; text-align: center; width: 100%; max-width: 900px; }
+  .share-tag { font-size: 26px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--smoke); }
+  .share-name { font-family: 'Bebas Neue', sans-serif; font-size: 130px; line-height: 0.95; color: var(--red); text-transform: uppercase; margin: 20px 0 24px; }
+  .share-verdict { font-size: 40px; line-height: 1.35; color: var(--ink); margin: 0 auto 34px; max-width: 20ch; }
+  .share-score { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--ink); letter-spacing: 0.04em; }
+  .share-recipe { font-size: 24px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 28px; line-height: 1.5; }
+  .share-logo { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--red); letter-spacing: 0.1em; margin-top: 40px; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -219,6 +259,95 @@
     </div>
   </section>
 
+  <!-- BYG DIN EGEN HOTTER -->
+  <section class="builder">
+    <div class="container">
+      <div class="intro">
+        <div class="tagline tagline-upper">Leg med maden</div>
+        <h2 class="headline-md">BYG DIN EGEN HOTTER</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step">
+          <h3>Brød</h3><div class="hint">Vælg ét</div>
+          <div class="opts" data-group="brod">
+            <label class="opt on"><input type="radio" name="brod" value="Alm. brød" checked>Alm. brød</label>
+            <label class="opt"><input type="radio" name="brod" value="Fransk brød">Fransk brød</label>
+            <label class="opt"><input type="radio" name="brod" value="Brioche">Brioche</label>
+            <label class="opt"><input type="radio" name="brod" value="Grov">Grov</label>
+            <label class="opt"><input type="radio" name="brod" value="Sesam">Sesam</label>
+          </div>
+        </div>
+
+        <div class="step">
+          <h3>Pølse</h3><div class="hint">Vælg ét</div>
+          <div class="opts" data-group="polse">
+            <label class="opt on"><input type="radio" name="polse" value="Frankfurter" checked>Frankfurter</label>
+            <label class="opt"><input type="radio" name="polse" value="Pølse i svøb">Pølse i svøb</label>
+            <label class="opt"><input type="radio" name="polse" value="Ostepølse">Ostepølse</label>
+            <label class="opt"><input type="radio" name="polse" value="Rød pølse">Rød pølse</label>
+            <label class="opt"><input type="radio" name="polse" value="Lammepølle">Lammepølle</label>
+            <label class="opt"><input type="radio" name="polse" value="Oksedreng">Oksedreng</label>
+            <label class="opt"><input type="radio" name="polse" value="Kyllingehapser">Kyllingehapser</label>
+          </div>
+        </div>
+
+        <div class="step">
+          <h3>Toppings</h3><div class="hint">Vælg løs</div>
+          <div class="opts" data-group="top">
+            <label class="opt"><input type="checkbox" value="Rå løg">Rå løg</label>
+            <label class="opt"><input type="checkbox" value="Ristede løg">Ristede løg</label>
+            <label class="opt"><input type="checkbox" value="Agurkesalat">Agurkesalat</label>
+            <label class="opt"><input type="checkbox" value="Syltede rødløg">Syltede rødløg</label>
+            <label class="opt"><input type="checkbox" value="Mikrogrønt">Mikrogrønt</label>
+            <label class="opt"><input type="checkbox" value="Sauerkraut">Sauerkraut</label>
+          </div>
+        </div>
+
+        <div class="step">
+          <h3>Dressing</h3><div class="hint">Vælg løs</div>
+          <div class="opts" data-group="dress">
+            <label class="opt"><input type="checkbox" value="Ketchup">Ketchup</label>
+            <label class="opt"><input type="checkbox" value="Sød sennep">Sød sennep</label>
+            <label class="opt"><input type="checkbox" value="Stærk sennep">Stærk sennep</label>
+            <label class="opt"><input type="checkbox" value="Remoulade">Remoulade</label>
+            <label class="opt"><input type="checkbox" value="Fransk dressing">Fransk dressing</label>
+            <label class="opt"><input type="checkbox" value="Chilimayo">Chilimayo</label>
+            <label class="opt"><input type="checkbox" value="Karry ketchup">Karry ketchup</label>
+          </div>
+        </div>
+      </div>
+
+      <button class="buildbtn" onclick="buildHotter()">Byg min hotter</button>
+
+      <div class="result" id="builderResult">
+        <div class="stripes"></div>
+        <div class="inner">
+          <div class="r-tag">Din hotter</div>
+          <div class="r-name" id="bName"></div>
+          <div class="r-verdict" id="bVerdict"></div>
+          <div class="r-score" id="bScore"></div>
+          <div class="r-recipe" id="bRecipe"></div>
+          <button class="sharebtn" onclick="shareHotter()">Download som billede</button>
+        </div>
+      </div>
+
+      <div class="share-wrap" aria-hidden="true">
+        <div class="share-card" id="shareCard">
+          <svg class="s-stripes" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice"><defs><pattern id="shareStripe" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="64" height="64" fill="#FFFFFF"/><rect width="32" height="64" fill="#E02020"/></pattern></defs><rect width="1080" height="1080" fill="url(#shareStripe)"/></svg>
+          <div class="share-panel">
+            <div class="share-tag">Min hotter fra hotters.dk</div>
+            <div class="share-name" id="sName"></div>
+            <div class="share-verdict" id="sVerdict"></div>
+            <div class="share-score" id="sScore"></div>
+            <div class="share-recipe" id="sRecipe"></div>
+            <div class="share-logo">HOTTERS.DK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="banner">
     <div class="container">
       <h2>SKRIV TIL OS PÅ <a href="https://instagram.com/hotters.dk" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 0.15em;">INSTAGRAM</a> - VI ER IKKE HELT OPPE OG KØRE ENDNU ;)</h2>
@@ -231,6 +360,136 @@
       <p style="color: var(--smoke); font-size: 0.875rem;">© 2026 HOTTERS.DK — INGEN BULLSHIT.</p>
     </div>
   </footer>
+
+  <script>
+    // Byg din egen hotter — pill toggle
+    document.querySelectorAll('.builder .opt').forEach(function(opt){
+      var input = opt.querySelector('input');
+      opt.addEventListener('click', function(){
+        setTimeout(function(){
+          if (input.type === 'radio') {
+            opt.closest('.opts').querySelectorAll('.opt').forEach(function(o){ o.classList.remove('on'); });
+            if (input.checked) opt.classList.add('on');
+          } else {
+            opt.classList.toggle('on', input.checked);
+          }
+        }, 0);
+      });
+    });
+
+    function buildHotter(){
+      var val = function(n){ return document.querySelector('.builder input[name="'+n+'"]:checked').value; };
+      var many = function(g){ return Array.prototype.slice.call(document.querySelectorAll('.builder [data-group="'+g+'"] input:checked')).map(function(i){ return i.value; }); };
+      var pick = function(a){ return a[Math.floor(Math.random()*a.length)]; };
+
+      var brod = val('brod'), polse = val('polse');
+      var tops = many('top'), dress = many('dress');
+
+      // fun scoring
+      var score = 5;
+      var bonus = {'Pølse i svøb':3,'Ostepølse':2,'Oksedreng':2,'Lammepølle':2,'Kyllingehapser':1,'Rød pølse':1,'Frankfurter':0};
+      score += bonus[polse] || 0;
+      score += tops.length + dress.length;
+      if (dress.length === 0) score -= 2;
+      if (brod === 'Brioche') score += 1;
+      score = Math.max(1, Math.min(10, score));
+
+      // name
+      var adj = ['Den Farlige','Den Frække','Den Fede','Den Uartige','Den Kompromisløse','Den Vilde','Den Stille'];
+      var noun = {'Frankfurter':'Frankfurter','Pølse i svøb':'Bacon-Bomber','Ostepølse':'Ostebombe','Rød pølse':'Røde','Lammepølle':'Lammeben','Oksedreng':'Oksedreng','Kyllingehapser':'Kylling'};
+      var name = pick(adj) + ' ' + noun[polse];
+
+      var hasTop = function(t){ return tops.indexOf(t) > -1; };
+      var hasDress = function(d){ return dress.indexOf(d) > -1; };
+
+      // verdict (signature combos override both name + verdict; order = priority)
+      var v;
+      // The Classic: fransk brød + rød pølse/frankfurter + fransk dressing
+      if (brod === 'Fransk brød' && (polse === 'Rød pølse' || polse === 'Frankfurter') && hasDress('Fransk dressing')) {
+        name = 'En Sand Klassiker';
+        v = 'Du ved, hvad der virker. Hver gang.';
+      }
+      // I — all toppings
+      else if (tops.length === 6) {
+        name = 'Skitzofreni';
+        v = 'Er du okay, min ven?';
+      }
+      // B — ristet med det hele (needs sennep)
+      else if (hasTop('Rå løg') && hasTop('Ristede løg') && hasTop('Agurkesalat') && hasDress('Ketchup') && hasDress('Remoulade') && (hasDress('Sød sennep') || hasDress('Stærk sennep'))) {
+        name = 'Ristet Med Det Hele';
+        v = 'Ærkedansk. Ingen kan tage det fra dig.';
+      }
+      // F — gourmet
+      else if (brod === 'Brioche' && (polse === 'Oksedreng' || polse === 'Lammepølle') && hasDress('Remoulade') && hasTop('Syltede rødløg')) {
+        name = 'Gourmet-Nørden';
+        v = 'Du tager det seriøst. Respekt.';
+      }
+      // D — roskilde
+      else if (polse === 'Ostepølse' && hasDress('Karry ketchup') && hasTop('Ristede løg')) {
+        name = 'Roskilde Kl. 04';
+        v = 'Du ved præcis hvilken festival du er på.';
+      }
+      // C — tyskeren
+      else if (polse === 'Frankfurter' && hasTop('Sauerkraut') && hasDress('Stærk sennep')) {
+        name = 'Tyskeren';
+        v = 'Sehr gut. Nabolandet ville nikke.';
+      }
+      // E — den sunde løgn
+      else if ((brod === 'Grov' || brod === 'Sesam') && polse === 'Kyllingehapser' && hasTop('Mikrogrønt')) {
+        name = 'Den Sunde Løgn';
+        v = 'Sund? Det er stadig pølse i brød, skat. Men flot forsøg.';
+      }
+      // A — bacon-brutalen
+      else if (polse === 'Pølse i svøb' && dress.length >= 3) {
+        name = 'Bacon-Brutalen';
+        v = 'Bacon og det hele. Hjertet græder, men munden jubler.';
+      }
+      // G — nødråbet
+      else if (dress.length >= 4) {
+        name = 'Nødråbet';
+        v = 'Fire slags dressing? Det er ikke en bestilling, det er et nødråb.';
+      }
+      // H — ostepølse + chilimayo
+      else if (polse === 'Ostepølse' && hasDress('Chilimayo')) v = 'Ostepølse med chilimayo. Farligt lækkert. Din kardiolog ringer.';
+      // purist
+      else if (polse === 'Rød pølse' && tops.length === 0 && dress.length === 0) v = 'Rød pølse, blank. Gadekøkken-purist. Ingen undskyldninger.';
+      else if (dress.length === 0) v = 'Ingen dressing? Tør. Ligesom din eks. Men respekt for modet.';
+      else if (hasTop('Rå løg') && hasTop('Ristede løg')) v = 'Begge slags løg. Modig. Kys ikke nogen bagefter.';
+      else if (hasTop('Mikrogrønt') && hasTop('Sauerkraut')) v = 'Mikrogrønt og sauerkraut. Er det en hotter eller et TED-talk?';
+      else v = pick([
+        'Solidt valg. Den ville din farmor nikke anerkendende til.',
+        'Rimelig lækker. Ingen pis, ingen fifleri.',
+        'Den holder. Spis den stående med en øl i den anden hånd.',
+        'Fin balance. Du ved vist hvad du laver.'
+      ]);
+
+      document.getElementById('bName').textContent = name;
+      document.getElementById('bVerdict').textContent = v;
+      document.getElementById('bScore').textContent = 'Hotter-score: ' + score + '/10 ' + '🌭'.repeat(Math.round(score/2));
+      var recipe = [brod, polse].concat(tops).concat(dress).join(' · ');
+      document.getElementById('bRecipe').textContent = recipe;
+
+      // mirror into the off-screen share card
+      document.getElementById('sName').textContent = name;
+      document.getElementById('sVerdict').textContent = v;
+      document.getElementById('sScore').textContent = 'Hotter-score: ' + score + '/10';
+      document.getElementById('sRecipe').textContent = recipe;
+
+      var r = document.getElementById('builderResult');
+      r.classList.add('show');
+      r.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    function shareHotter(){
+      if (typeof html2canvas !== 'function') return;
+      html2canvas(document.getElementById('shareCard'), {width:1080, height:1080, scale:1, useCORS:true}).then(function(canvas){
+        var a = document.createElement('a');
+        a.download = 'min-hotter.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      });
+    }
+  </script>
 
 </body>
 </html>
